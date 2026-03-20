@@ -1,42 +1,27 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\frontend\HomeController;
-use App\Http\Controllers\frontend\ProductController as SanphamController;
-use App\Http\Controllers\frontend\ContactController as LienheController;
-use App\Http\Controllers\backend\DashboardController;
-use App\Http\Controllers\backend\ProductController;
+use App\Http\Controllers\frontend\ProductController;
 use App\Http\Controllers\frontend\TopicController;
+use App\Http\Controllers\frontend\PostController;
+// use App\Http\Controllers\frontend\ContactController; // Nếu có
 
-Route::get('/', [HomeController::class,'index'])->name('site.home');
+// Trang chủ
+Route::get('/', [HomeController::class, 'index'])->name('site.home');
 
-Route::get('san-pham',[SanphamController::class,'index'])->name('site.product.index');
+// Sản phẩm
+Route::get('/san-pham', [ProductController::class, 'index'])->name('site.product.index');
+Route::get('/chi-tiet-san-pham/{slug}', [ProductController::class, 'detail'])->name('site.product.detail');
 
-Route::get('san-pham/{slug}',[SanphamController::class,'detail'])->name('site.product.detail');
+// Chủ đề
+Route::get('/chu-de', [TopicController::class, 'index'])->name('site.topic.index');
+Route::get('/chu-de/{slug}', [TopicController::class, 'detail'])->name('site.topic.detail');
 
-Route::get('lien-he',[LienheController::class,'index'])->name('site.contact.index');
-Route::post('lien-he',[LienheController::class,'store'])->name('site.contact.store');
+// BÀI VIẾT (Đây là đoạn thiếu dẫn đến lỗi của bạn)
+Route::get('/bai-viet', [PostController::class, 'index'])->name('site.post.index');
+Route::get('/chi-tiet-bai-viet/{slug}', [PostController::class, 'detail'])->name('site.post.detail');
 
-Route::prefix('admin')->group(function () {
-
-    Route::get('/',[DashboardController::class,'index'])->name('admin.dashboard');
-
-    Route::prefix('products')->group(function () {
-
-        Route::get('/',[ProductController::class,'index'])->name('admin.product.index');
-
-        Route::get('create',[ProductController::class,'create'])->name('admin.product.create');
-
-        Route::post('store',[ProductController::class,'store'])->name('admin.product.store');
-
-        Route::get('edit/{id}',[ProductController::class,'edit'])->name('admin.product.edit');
-
-        Route::put('update/{id}',[ProductController::class,'update'])->name('admin.product.update');
-
-        Route::delete('delete/{id}',[ProductController::class,'delete'])->name('admin.product.delete');
-
-        
-
-        Route::get('/chu-de', [TopicController::class, 'index'])->name('site.topic.index');
-    });
-});
+// LIÊN HỆ
+Route::get('/lien-he', function() {
+    return "Trang liên hệ đang cập nhật";
+})->name('site.contact.index');

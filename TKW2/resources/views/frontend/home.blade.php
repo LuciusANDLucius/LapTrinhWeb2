@@ -16,7 +16,7 @@
                 Khám phá Công nghệ mới nhất
             </h2>
             <p style="font-size: 18px; opacity: 0.9; mb-30">
-                Chào mừng bạn đến với HITC Store. Nơi cung cấp những sản phẩm chất lượng cao với giá thành tốt nhất thị trường.
+                Chào mừng bạn đến với MMB Store. Nơi cung cấp những sản phẩm chất lượng cao với giá thành tốt nhất thị trường.
             </p>
             <a href="{{ route('site.product.index') }}" style="
                 display: inline-block;
