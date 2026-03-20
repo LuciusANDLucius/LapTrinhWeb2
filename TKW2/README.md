@@ -19,3 +19,4 @@ php artisan db:seed
 
 * 11 bảng: banner, brand, category, contact, menu, order, orderdetail, post, product, topic, user
 * Có migration + seeder đầy đủ
+* https://github.com/LuciusANDLucius/LapTrinhWeb2
