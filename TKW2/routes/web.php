@@ -6,6 +6,7 @@ use App\Http\Controllers\frontend\ProductController as SanphamController;
 use App\Http\Controllers\frontend\ContactController as LienheController;
 use App\Http\Controllers\backend\DashboardController;
 use App\Http\Controllers\backend\ProductController;
+use App\Http\Controllers\frontend\TopicController;
 
 Route::get('/', [HomeController::class,'index'])->name('site.home');
 
@@ -34,5 +35,8 @@ Route::prefix('admin')->group(function () {
 
         Route::delete('delete/{id}',[ProductController::class,'delete'])->name('admin.product.delete');
 
+        
+
+        Route::get('/chu-de', [TopicController::class, 'index'])->name('site.topic.index');
     });
 });

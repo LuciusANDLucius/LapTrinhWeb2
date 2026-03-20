@@ -1,51 +1,117 @@
 @props(['title'])
 
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>{{ $title ?? 'Website Laravel' }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title ?? 'Laravel Store' }}</title>
 
     <style>
-        body{
-            font-family: Arial;
-            margin:0;
+        :root {
+            --primary-color: #007bff; /* Màu xanh dương tươi */
+            --secondary-color: #f8f9fa;
+            --text-color: #2d3436;
+            --accent-color: #ff7675; /* Màu nhấn cho các nút hoặc thông báo */
         }
 
-        header{
-            background:#333;
-            color:white;
-            padding:15px;
-            text-align:center;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f4f7f6; /* Nền xám cực nhẹ giúp nổi bật nội dung */
+            color: var(--text-color);
+            line-height: 1.6;
         }
 
-        nav{
-            background:#555;
-            padding:10px;
-            text-align:center;
+        /* Header & Navigation Gộp chung làm 1 thanh hiện đại */
+        header {
+            background: #ffffff;
+            padding: 0 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        nav a{
-            color:white;
-            margin:0 15px;
-            text-decoration:none;
-            font-weight:bold;
+        .logo h1 {
+            color: var(--primary-color);
+            margin: 0;
+            font-size: 26px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        nav a:hover{
-            color:yellow;
+        nav {
+            display: flex;
+            gap: 10px;
         }
 
-        main{
-            padding:20px;
-            min-height:400px;
+        nav a {
+            color: #636e72;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 20px;
+            transition: all 0.3s ease;
         }
 
-        footer{
-            background:#333;
-            color:white;
-            text-align:center;
-            padding:10px;
+        nav a:hover {
+            color: var(--primary-color);
+            background: rgba(0, 123, 255, 0.1);
+        }
+
+        nav a.active {
+            color: white;
+            background: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Nội dung chính */
+        main {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            min-height: 600px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+        }
+
+        h2 {
+            color: var(--text-color);
+            border-left: 5px solid var(--primary-color);
+            padding-left: 15px;
+            margin-bottom: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3436;
+            color: #dfe6e9;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 50px;
+        }
+
+        footer p { margin: 5px 0; }
+
+        /* Responsive cho Mobile */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                height: auto;
+                padding: 15px;
+            }
+            nav {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -53,113 +119,43 @@
 <body>
 
 <header>
-    <h1>{{ $title ?? 'Website Laravel' }}</h1>
-</header>
+    <div class="logo">
+        <h1>{{ $title ?? 'HITC Store' }}</h1>
+    </div>
+    
+    <nav>
+        <a href="{{ route('site.home') }}" class="{{ request()->routeIs('site.home') ? 'active' : '' }}">
+            Trang chủ
+        </a>
 
-<nav>
-    <a href="/">Trang chủ</a>
-    <a href="/san-pham">Sản phẩm</a>
-    <a href="/bai-viet">Bài viết</a>
-    <a href="/gio-hang">Giỏ hàng</a>
-    <a href="/lien-he">Liên hệ</a>
-</nav>
+        <a href="{{ route('site.product.index') }}" class="{{ request()->routeIs('site.product.*') ? 'active' : '' }}">
+            Sản phẩm
+        </a>
+            <a href="{{ route('site.topic.index') }}" 
+            class="{{ request()->routeIs('site.topic.*') ? 'active' : '' }}">
+              Chủ đề
+          </a>
+        <a href="#" class="{{ request()->is('bai-viet*') ? 'active' : '' }}">
+            Bài viết
+        </a>
+
+        <a href="#" class="{{ request()->is('gio-hang*') ? 'active' : '' }}">
+            🛒 Giỏ hàng
+        </a>
+
+        <a href="{{ route('site.contact.index') }}" class="{{ request()->routeIs('site.contact.*') ? 'active' : '' }}">
+            Liên hệ
+        </a>
+    </nav>
+</header>
 
 <main>
     {{ $slot }}
 </main>
 
 <footer>
-    import { ShoppingBag, Mail, Phone, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
-
-export default function Footer() {
-  return (
-    <footer className="bg-primary text-primary-foreground mt-auto">
-      {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <ShoppingBag className="w-6 h-6" />
-              <h3>ShopViet</h3>
-            </div>
-            <p className="text-primary-foreground/80 text-sm mb-4">
-              Cửa hàng trực tuyến uy tín, chất lượng hàng đầu Việt Nam. Cam kết sản phẩm chính hãng 100%.
-            </p>
-            <div className="flex gap-3">
-              <a href="#" className="w-9 h-9 bg-primary-foreground/10 hover:bg-primary-foreground/20 rounded-full flex items-center justify-center transition-colors">
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-9 h-9 bg-primary-foreground/10 hover:bg-primary-foreground/20 rounded-full flex items-center justify-center transition-colors">
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-9 h-9 bg-primary-foreground/10 hover:bg-primary-foreground/20 rounded-full flex items-center justify-center transition-colors">
-                <Youtube className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="mb-4">Liên kết nhanh</h4>
-            <ul className="space-y-2 text-sm text-primary-foreground/80">
-              <li><a href="#" className="hover:text-primary-foreground transition-colors">Giới thiệu</a></li>
-              <li><a href="#" className="hover:text-primary-foreground transition-colors">Sản phẩm mới</a></li>
-              <li><a href="#" className="hover:text-primary-foreground transition-colors">Khuyến mãi</a></li>
-              <li><a href="#" className="hover:text-primary-foreground transition-colors">Tin tức</a></li>
-              <li><a href="#" className="hover:text-primary-foreground transition-colors">Tuyển dụng</a></li>
-            </ul>
-          </div>
-
-          {/* Customer Service */}
-          <div>
-            <h4 className="mb-4">Chăm sóc khách hàng</h4>
-            <ul className="space-y-2 text-sm text-primary-foreground/80">
-              <li><a href="#" className="hover:text-primary-foreground transition-colors">Hướng dẫn mua hàng</a></li>
-              <li><a href="#" className="hover:text-primary-foreground transition-colors">Chính sách đổi trả</a></li>
-              <li><a href="#" className="hover:text-primary-foreground transition-colors">Bảo hành</a></li>
-              <li><a href="#" className="hover:text-primary-foreground transition-colors">Vận chuyển</a></li>
-              <li><a href="#" className="hover:text-primary-foreground transition-colors">Câu hỏi thường gặp</a></li>
-            </ul>
-          </div>
-
-          {/* Contact Info */}
-          <div>
-            <h4 className="mb-4">Liên hệ</h4>
-            <ul className="space-y-3 text-sm text-primary-foreground/80">
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>123 Đường ABC, Quận 1, TP. Hồ Chí Minh</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Phone className="w-4 h-4 flex-shrink-0" />
-                <span>1900 1234</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Mail className="w-4 h-4 flex-shrink-0" />
-                <span>support@shopviet.vn</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Footer */}
-      <div className="border-t border-primary-foreground/10">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-primary-foreground/60">
-            <p>© 2026 ShopViet. Tất cả quyền được bảo lưu.</p>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-primary-foreground transition-colors">Điều khoản sử dụng</a>
-              <a href="#" className="hover:text-primary-foreground transition-colors">Chính sách bảo mật</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
+    <p><strong>{{ $title ?? 'Laravel Project' }}</strong></p>
+    <p>© {{ date('Y') }} - Thiết kế bởi Alo toi la bo</p>
 </footer>
 
 </body>
