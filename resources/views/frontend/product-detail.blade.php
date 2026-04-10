@@ -80,10 +80,13 @@
         </div>
     </div>
 
-    <div style="margin-top: 40px;">
+    <div style="margin-top: 40px; margin-bottom: 20px;">
         <a href="{{ route('site.product.index') }}" style="text-decoration: none; color: #007bff; font-weight: bold;">
             ← Quay lại danh sách sản phẩm
         </a>
     </div>
+
+    <!-- Related Products Component -->
+    <x-other-detail :product="$product" />
 
 </x-layout-site>
