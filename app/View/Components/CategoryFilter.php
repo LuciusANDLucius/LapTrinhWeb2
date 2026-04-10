@@ -9,15 +9,16 @@ use App\Models\Category;
 
 class CategoryFilter extends Component
 {
-    public $categories;
-
     public function __construct()
     {
-        $this->categories = Category::where('status', 1)->get();
     }
 
     public function render(): View|Closure|string
     {
-        return view('components.category-filter');
+        $list_category = Category::select('id', 'name')
+        ->where([['status', 1], ['parent_id', 0]])
+        ->orderBy('sort_order', 'asc')
+        ->get();
+        return view('components.category-filter', compact('list_category'));
     }
 }

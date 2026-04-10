@@ -51,8 +51,5 @@ Route::prefix('admin')->group(function () {
     // 4. Resource: Index, Create, Store, Edit, Update, Destroy
     Route::resource('products', BackendProduct::class);
 
-    /* --- CÁC QUẢN LÝ KHÁC --- */
-    // Sau này Hiếu chỉ cần bỏ comment khi đã có Controller tương ứng
-    // Route::resource('categories', App\Http\Controllers\Backend\CategoryController::class);
-    // Route::resource('brands', App\Http\Controllers\Backend\BrandController::class);
+
 });

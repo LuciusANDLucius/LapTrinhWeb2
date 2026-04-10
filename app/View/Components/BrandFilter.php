@@ -18,6 +18,10 @@ class BrandFilter extends Component
 
     public function render(): View|Closure|string
     {
-        return view('components.brand-filter');
+        $list_brand = Brand::select('id', 'name')
+        ->where('status', 1)
+        ->orderBy('sort_order', 'asc')
+        ->get();
+        return view('components.brand-filter', compact('list_brand'));
     }
 }

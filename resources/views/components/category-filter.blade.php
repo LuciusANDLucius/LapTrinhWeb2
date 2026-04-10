@@ -4,7 +4,7 @@
         <label>
             <input type="radio" name="category_id" value="" {{ request('category_id') == '' ? 'checked' : '' }}> Tất cả danh mục
         </label>
-        @foreach($categories as $cat)
+        @foreach($list_category as $cat)
         <label>
             <input type="radio" name="category_id" value="{{ $cat->id }}" {{ request('category_id') == $cat->id ? 'checked' : '' }}> {{ $cat->name }}
         </label>
