@@ -255,7 +255,7 @@
     <div class="filter-layout">
         <!-- Sidebar Filter -->
         <aside class="filter-sidebar">
-            <form action="{{ route('site.product.index') }}" method="GET">
+            <form action="{{ route('site.product.index') }}" method="GET" id="filterForm">
                 <div class="filter-group">
                     <h4>Tìm kiếm</h4>
                     <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Nhập tên sản phẩm...">
@@ -280,6 +280,21 @@
                 <button type="submit" class="filter-btn">Áp dụng lọc</button>
                 <a href="{{ route('site.product.index') }}" class="clear-btn">Xóa bộ lọc</a>
             </form>
+            <script>
+                document.getElementById('filterForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const url = new URL(this.action);
+                    const formData = new FormData(this);
+                    
+                    formData.forEach((value, key) => {
+                        if (value !== null && value.toString().trim() !== '') {
+                            url.searchParams.append(key, value.trim());
+                        }
+                    });
+                    
+                    window.location.href = url.href;
+                });
+            </script>
         </aside>
 
         <!-- Main Product Area -->
